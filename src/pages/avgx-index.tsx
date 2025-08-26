@@ -136,7 +136,7 @@ const AvgxIndexPage = () => {
             <Button
               variant="link"
               className="text-blue-500 p-0 h-auto font-normal"
-              onClick={() => window.open('/api/whitepaper', '_blank')}
+              onClick={() => window.open('/assets/whitepaper.pdf', '_blank')}
             >
               Download Whitepaper
             </Button>
