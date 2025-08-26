@@ -120,7 +120,7 @@ const AboutPage = () => {
             <div className="flex space-x-4">
               <Button 
                 className="flex-1 bg-gradient-to-r from-accent-teal to-emerald-500 hover:shadow-lg transition-all"
-                onClick={() => window.open('/api/whitepaper', '_blank')}
+                onClick={() => window.open('/assets/whitepaper.pdf', '_blank')}
               >
                 <Download className="mr-2 h-4 w-4" />
                 Download PDF
@@ -128,7 +128,7 @@ const AboutPage = () => {
               <Button 
                 variant="outline" 
                 className="flex-1 border-accent-teal text-accent-teal hover:bg-accent-teal hover:text-white"
-                onClick={() => window.open('/api/whitepaper', '_blank')}
+                onClick={() => window.open('/assets/whitepaper.pdf', '_blank')}
               >
                 <ExternalLink className="mr-2 h-4 w-4" />
                 View Online
