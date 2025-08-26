@@ -2,10 +2,18 @@ import { GlassCard } from "@/components/ui/glass-card";
 import { Button } from "@/components/ui/button";
 import { FileText, Download, ExternalLink } from "lucide-react";
 import { API_BASE_URL } from "@/lib/config";
+import { useState } from "react";
+import { Document, Page, pdfjs } from 'react-pdf';
+
+pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
 
 const AboutPage = () => {
-  const whitepaperUrl = `${API_BASE_URL}/api/whitepaper/view`;
+  const whitepaperStaticUrl = `${API_BASE_URL}/assets/whitepaper.pdf`;
   const whitepaperDownloadUrl = `${API_BASE_URL}/api/whitepaper`;
+
+  const [showViewer, setShowViewer] = useState(false);
+  const [numPages, setNumPages] = useState<number | null>(null);
+  const [loadError, setLoadError] = useState<string | null>(null);
 
   return (
     <div className="min-h-screen pt-20 py-20 bg-gradient-to-b from-avgx-secondary to-avgx-primary dark:from-avgx-secondary dark:to-avgx-primary light:from-gray-50 light:to-white">
@@ -107,19 +115,37 @@ const AboutPage = () => {
           <GlassCard className="p-8">
             <h3 className="text-2xl font-bold mb-6 text-avgx-text-primary dark:text-avgx-text-primary light:text-gray-900">AVGX Whitepaper</h3>
             
-            {/* PDF Viewer Placeholder */}
-            <div className="bg-secondary/50 rounded-xl p-8 h-96 flex items-center justify-center mb-6">
-              <div className="text-center">
-                <FileText className="w-16 h-16 text-accent-teal mb-4 mx-auto" />
-                <p className="text-xl font-medium mb-2 text-avgx-text-primary dark:text-avgx-text-primary light:text-gray-900">Technical Whitepaper</p>
-                <p className="text-avgx-text-secondary dark:text-avgx-text-secondary light:text-gray-600 mb-4">
-                  Comprehensive analysis of AVGX methodology, tokenomics, and governance structure
-                </p>
-                <p className="text-sm text-avgx-text-secondary dark:text-avgx-text-secondary light:text-gray-600">
-                  PDF viewer will be implemented with PDF.js for embedded document viewing
-                </p>
+            {!showViewer && (
+              <div className="bg-secondary/50 rounded-xl p-8 h-96 flex items-center justify-center mb-6">
+                <div className="text-center">
+                  <FileText className="w-16 h-16 text-accent-teal mb-4 mx-auto" />
+                  <p className="text-xl font-medium mb-2 text-avgx-text-primary dark:text-avgx-text-primary light:text-gray-900">Technical Whitepaper</p>
+                  <p className="text-avgx-text-secondary dark:text-avgx-text-secondary light:text-gray-600 mb-4">
+                    Comprehensive analysis of AVGX methodology, tokenomics, and governance structure
+                  </p>
+                  <p className="text-sm text-avgx-text-secondary dark:text-avgx-text-secondary light:text-gray-600">
+                    Click "View Online" to preview within the page
+                  </p>
+                </div>
               </div>
-            </div>
+            )}
+
+            {showViewer && (
+              <div className="bg-secondary/30 rounded-xl p-4 mb-6">
+                {loadError && (
+                  <div className="text-red-500 mb-2">Failed to load PDF file.</div>
+                )}
+                <Document
+                  file={whitepaperStaticUrl}
+                  onLoadSuccess={({ numPages }) => { setNumPages(numPages); setLoadError(null); }}
+                  onLoadError={(err) => { setLoadError(err?.message || 'Failed to load'); }}
+                >
+                  {Array.from(new Array(numPages || 0), (el, index) => (
+                    <Page key={`page_${index + 1}`} pageNumber={index + 1} width={800} />
+                  ))}
+                </Document>
+              </div>
+            )}
             
             <div className="flex space-x-4">
               <Button 
@@ -132,7 +158,7 @@ const AboutPage = () => {
               <Button 
                 variant="outline" 
                 className="flex-1 border-accent-teal text-accent-teal hover:bg-accent-teal hover:text-white"
-                onClick={() => window.open(whitepaperUrl, '_blank')}
+                onClick={() => window.open('https://avgx-whitepaperoth.static.domains/3c0f6e2f91050b0ad506c26142589fcf.pdf', '_blank')}
               >
                 <ExternalLink className="mr-2 h-4 w-4" />
                 View Online
