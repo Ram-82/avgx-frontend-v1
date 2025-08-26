@@ -4,7 +4,7 @@ import { FileText, Download, ExternalLink } from "lucide-react";
 import { API_BASE_URL } from "@/lib/config";
 
 const AboutPage = () => {
-  const whitepaperUrl = `${API_BASE_URL}/assets/whitepaper.pdf`;
+  const whitepaperUrl = `${API_BASE_URL}/api/whitepaper/view`;
   const whitepaperDownloadUrl = `${API_BASE_URL}/api/whitepaper`;
 
   return (
