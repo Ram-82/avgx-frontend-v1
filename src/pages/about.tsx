@@ -1,8 +1,12 @@
 import { GlassCard } from "@/components/ui/glass-card";
 import { Button } from "@/components/ui/button";
 import { FileText, Download, ExternalLink } from "lucide-react";
+import { API_BASE_URL } from "@/lib/config";
 
 const AboutPage = () => {
+  const whitepaperUrl = `${API_BASE_URL}/assets/whitepaper.pdf`;
+  const whitepaperDownloadUrl = `${API_BASE_URL}/api/whitepaper`;
+
   return (
     <div className="min-h-screen pt-20 py-20 bg-gradient-to-b from-avgx-secondary to-avgx-primary dark:from-avgx-secondary dark:to-avgx-primary light:from-gray-50 light:to-white">
       <div className="container mx-auto px-6">
@@ -120,7 +124,7 @@ const AboutPage = () => {
             <div className="flex space-x-4">
               <Button 
                 className="flex-1 bg-gradient-to-r from-accent-teal to-emerald-500 hover:shadow-lg transition-all"
-                onClick={() => window.open('/assets/whitepaper.pdf', '_blank')}
+                onClick={() => window.open(whitepaperDownloadUrl, '_blank')}
               >
                 <Download className="mr-2 h-4 w-4" />
                 Download PDF
@@ -128,7 +132,7 @@ const AboutPage = () => {
               <Button 
                 variant="outline" 
                 className="flex-1 border-accent-teal text-accent-teal hover:bg-accent-teal hover:text-white"
-                onClick={() => window.open('/assets/whitepaper.pdf', '_blank')}
+                onClick={() => window.open(whitepaperUrl, '_blank')}
               >
                 <ExternalLink className="mr-2 h-4 w-4" />
                 View Online
