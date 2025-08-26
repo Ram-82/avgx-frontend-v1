@@ -158,7 +158,7 @@ const AboutPage = () => {
               <Button 
                 variant="outline" 
                 className="flex-1 border-accent-teal text-accent-teal hover:bg-accent-teal hover:text-white"
-                onClick={() => window.open('https://avgx-whitepaperoth.static.domains/3c0f6e2f91050b0ad506c26142589fcf.pdf', '_blank')}
+                onClick={() => window.open('https://avgx-whitepaperoth.static.domains/whitepaper.pdf', '_blank')}
               >
                 <ExternalLink className="mr-2 h-4 w-4" />
                 View Online
