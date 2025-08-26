@@ -136,7 +136,7 @@ const AvgxIndexPage = () => {
             <Button
               variant="link"
               className="text-blue-500 p-0 h-auto font-normal"
-              onClick={() => window.open('/assets/whitepaper.pdf', '_blank')}
+              onClick={() => window.open(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/assets/whitepaper.pdf`, '_blank')}
             >
               Download Whitepaper
             </Button>
